@@ -1,0 +1,12 @@
+fileignoreconfig:
+- filename: .metadata
+  checksum: c26bf8e5fe7837356a459977e223bff17ac6bf8daa8e8b8e8df51c184223cb83
+- filename: ios/Runner.xcodeproj/project.pbxproj
+  checksum: 4c55212eb6d6ba9a620ba769ac65436168a1d953db22533597c03780da5e05f8
+- filename: ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings
+  checksum: dfed3029d1da6278d8c1d9d1b4c66716b05f42eb2e6c581b69e9e8e86c301b64
+- filename: ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme
+  checksum: 871adc1c3c9dd50beec287b83cb19825f070bf10ce336ed790e5a48eac13a874
+- filename: pubspec.lock
+  checksum: 5cbc48d8b73ca42493a0596612b3f0349d3070e4f23f87859cdf9bc269df053a
+version: "1.0"
