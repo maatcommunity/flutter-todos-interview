@@ -1,63 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:equatable/equatable.dart';
+import 'package:flutter_todos/features/todos/bloc/todo_event.dart';
+import 'package:flutter_todos/features/todos/bloc/todo_state.dart';
 import 'package:flutter_todos/models/todo.dart';
 
-// Events
-abstract class TodoEvent extends Equatable {
-  const TodoEvent();
-
-  @override
-  List<Object> get props => [];
-}
-
-class AddTodo extends TodoEvent {
-  final String title;
-
-  const AddTodo(this.title);
-
-  @override
-  List<Object> get props => [title];
-}
-
-class DeleteTodo extends TodoEvent {
-  final int index;
-
-  const DeleteTodo(this.index);
-
-  @override
-  List<Object> get props => [index];
-}
-
-class ToggleTodo extends TodoEvent {
-  final String id;
-
-  const ToggleTodo(this.id);
-
-  @override
-  List<Object> get props => [id];
-}
-
-// State
-class TodoState extends Equatable {
-  final List<Todo> todos;
-
-  const TodoState({
-    this.todos = const [],
-  });
-
-  TodoState copyWith({
-    List<Todo>? todos,
-  }) {
-    return TodoState(
-      todos: todos ?? this.todos,
-    );
-  }
-
-  @override
-  List<Object> get props => [todos];
-}
-
-// Bloc
 class TodoBloc extends Bloc<TodoEvent, TodoState> {
   TodoBloc() : super(const TodoState()) {
     on<AddTodo>(_onAddTodo);
