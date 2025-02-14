@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_todos/models/todo.dart';
+import 'package:flutter_todos/features/todos/models/todo.dart';
 
 class TodoState extends Equatable {
   final List<Todo> todos;
