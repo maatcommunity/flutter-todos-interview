@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:flutter_todos/providers/todo_provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_todos/blocs/todo_bloc.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => TodoProvider(),
+    BlocProvider(
+      create: (_) => TodoBloc(),
       child: const MyApp(),
     ),
   );
@@ -42,12 +42,12 @@ class TodoScreen extends StatelessWidget {
           const AddTodoWidget(),
           const SizedBox(height: 20),
           Expanded(
-            child: Consumer<TodoProvider>(
-              builder: (context, todoProvider, child) {
+            child: BlocBuilder<TodoBloc, TodoState>(
+              builder: (context, state) {
                 return ListView.builder(
-                  itemCount: todoProvider.todos.length,
+                  itemCount: state.todos.length,
                   itemBuilder: (context, index) {
-                    final todo = todoProvider.todos[index];
+                    final todo = state.todos[index];
                     return ListTile(
                       title: Text(
                         todo.title,
@@ -59,11 +59,11 @@ class TodoScreen extends StatelessWidget {
                       ),
                       leading: Checkbox(
                         value: todo.isCompleted,
-                        onChanged: (_) => todoProvider.toggleTodo(todo.id),
+                        onChanged: (_) => context.read<TodoBloc>().add(ToggleTodo(todo.id)),
                       ),
                       trailing: IconButton(
                         icon: const Icon(Icons.delete),
-                        onPressed: () => todoProvider.deleteTodo(index),
+                        onPressed: () => context.read<TodoBloc>().add(DeleteTodo(index)),
                       ),
                     );
                   },
@@ -112,7 +112,7 @@ class _AddTodoWidgetState extends State<AddTodoWidget> {
           ElevatedButton(
             onPressed: () {
               if (_controller.text.isNotEmpty) {
-                context.read<TodoProvider>().addTodo(_controller.text);
+                context.read<TodoBloc>().add(AddTodo(_controller.text));
                 _controller.clear();
               }
             },
