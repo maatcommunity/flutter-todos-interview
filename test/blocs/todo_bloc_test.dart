@@ -1,7 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bloc_test/bloc_test.dart';
-import 'package:flutter_todos/blocs/todo_bloc.dart';
+import 'package:flutter_todos/features/todos/bloc/todo_bloc.dart';
+import 'package:flutter_todos/features/todos/bloc/todo_event.dart';
+import 'package:flutter_todos/features/todos/bloc/todo_state.dart';
+import 'package:flutter_todos/features/todos/models/todo.dart';
 
+// TODO: Testing Challenge
+// 1. Implement test for loading todos
+// 2. Implement test for adding a todo
+// 3. Implement test for the delete bug
 void main() {
   group('TodoBloc', () {
     late TodoBloc todoBloc;
@@ -19,22 +26,27 @@ void main() {
     });
 
     blocTest<TodoBloc, TodoState>(
-      'emits new state with added todo',
+      'Load todos test',
       build: () => todoBloc,
-      act: (bloc) => bloc.add(const AddTodo('Test Todo')),
-      expect: () => [
-        isA<TodoState>().having(
-          (state) => state.todos.first.title,
-          'todo title',
-          equals('Test Todo'),
-        ),
-      ],
+      act: (bloc) => (),
+      expect: () => [],
+    );
+    blocTest<TodoBloc, TodoState>(
+      'Add todo test',
+      build: () => todoBloc,
+      act: (bloc) => bloc.add(AddTodo('Test Todo')),
+      expect: () => [],
     );
 
-    // TODO: Candidate Task - Write a test for the toggle todo functionality
-    // The test should verify that a todo's completion status changes when toggled
-
-    // TODO: Candidate Task - Write a test that reveals the bug in delete functionality
-    // The test should show that the last todo cannot be deleted
+    blocTest<TodoBloc, TodoState>(
+      'Delete todo test',
+      build: () => todoBloc,
+      seed: () => TodoState(todos: [
+        Todo(id: '1', title: 'First Todo'),
+        Todo(id: '2', title: 'Second Todo'),
+      ]),
+      act: (bloc) => bloc.add(DeleteTodo(0)),
+      expect: () => [],
+    );
   });
 }

@@ -24,12 +24,3 @@ class DeleteTodo extends TodoEvent {
   @override
   List<Object> get props => [index];
 }
-
-class ToggleTodo extends TodoEvent {
-  final String id;
-
-  const ToggleTodo(this.id);
-
-  @override
-  List<Object> get props => [id];
-}
