@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_todos/blocs/todo_bloc.dart';
+import 'package:flutter_todos/features/todos/bloc/bloc.dart';
 
 void main() {
   runApp(
@@ -59,11 +59,13 @@ class TodoScreen extends StatelessWidget {
                       ),
                       leading: Checkbox(
                         value: todo.isCompleted,
-                        onChanged: (_) => context.read<TodoBloc>().add(ToggleTodo(todo.id)),
+                        onChanged: (_) =>
+                            context.read<TodoBloc>().add(ToggleTodo(todo.id)),
                       ),
                       trailing: IconButton(
                         icon: const Icon(Icons.delete),
-                        onPressed: () => context.read<TodoBloc>().add(DeleteTodo(index)),
+                        onPressed: () =>
+                            context.read<TodoBloc>().add(DeleteTodo(index)),
                       ),
                     );
                   },
